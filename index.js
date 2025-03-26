@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Gửi dữ liệu lên Google Sheets thông qua Google Apps Script
-        fetch("YOUR_GOOGLE_SCRIPT_URL", {
+        fetch("https://script.google.com/macros/s/AKfycbxJmeJ342OutGE7sUDa5hVyVMMmxxOWsbOd4eITMqkIkH_bTt4sOp8s_k4GlYSwptmelA/exec", {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
