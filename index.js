@@ -1,11 +1,11 @@
 document.getElementById("write-diary").addEventListener("submit", function (event) {
     event.preventDefault(); // Ngăn tải lại trang
 
-    let tradeId = localStorage.getItem("currentTradeId");
+    let tradeId = localStorage.getItem("currentTradeId") || Date.now().toString();
     
     // Thu thập dữ liệu từ form
     let tradeData = {
-        id: tradeId || Date.now().toString(),  // Tạo mã lệnh nếu chưa có
+        id: tradeId,
         orderType: document.getElementById("order-trade").value,
         date: document.getElementById("datePicker").value,
         icon: document.getElementById("icon").value,
@@ -21,9 +21,9 @@ document.getElementById("write-diary").addEventListener("submit", function (even
         lesson: document.getElementById("lesson").value,
     };
 
-    // Lưu ID vào localStorage nếu là lần 1
-    if (!tradeId) {
-        localStorage.setItem("currentTradeId", tradeData.id);
+    // Lưu ID vào localStorage nếu là lần đầu
+    if (!localStorage.getItem("currentTradeId")) {
+        localStorage.setItem("currentTradeId", tradeId);
     }
 
     // Gửi dữ liệu lên Google Apps Script
@@ -34,11 +34,13 @@ document.getElementById("write-diary").addEventListener("submit", function (even
     })
     .then(response => response.json())
     .then(data => {
-        if (data.status === "success") {
-            alert(tradeId ? "Lệnh đã cập nhật!" : "Lệnh đã lưu tạm, nhập lần 2 để hoàn thành!");
-            if (tradeId) localStorage.removeItem("currentTradeId"); // Xóa sau khi cập nhật
+        if (data.status === "inserted") {
+            alert("Lệnh đã lưu tạm, nhập lần 2 để hoàn thành!");
+        } else if (data.status === "updated") {
+            alert("Lệnh đã cập nhật thành công!");
+            localStorage.removeItem("currentTradeId"); // Xóa ID sau khi cập nhật
         } else {
-            alert("Lỗi lưu dữ liệu!");
+            alert("Lỗi khi lưu dữ liệu!");
         }
     })
     .catch(error => console.error("Lỗi gửi dữ liệu:", error));
@@ -56,7 +58,6 @@ function loadTradeData() {
     .then(response => response.json())
     .then(data => {
         if (data) {
-            // Gán dữ liệu vào form
             Object.keys(data).forEach(key => {
                 if (document.getElementById(key)) {
                     document.getElementById(key).value = data[key] || "";
