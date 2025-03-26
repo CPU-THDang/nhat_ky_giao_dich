@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Nhật Ký Lướt Sóng</title>
+</head>
+<body>
+    <main>
+        <h1>lập trình vận mệnh</h1>
+        <div class="container">
+            <form id="write-diary">
+                <div class="one">
+                <label id="order-trade">Loại lệnh</label>
+                <select id="order-trade" name="option">
+                    <option value="Mua" selected="Mua">Mua</option>
+                    <option value="Bán">Bán khống</option>
+                </select>
+                <label for="datePicker">Chọn ngày:</label>
+                <input type="date" id="datePicker">
+                </div>
+                <div class="two">
+                   <label for="icon">Cặp giao dịch
+                     <input id="icon" type="text" placeholder="icon"/>
+                   </label>
+                   <label for="quantity">Số lượng
+                     <input id="quantity" type="number" placeholder="quantity"/>
+                   </label>
+                   <label for="price">Đơn giá
+                     <input id="price" type="number" placeholder="price"/>
+                   </label>
+                   <label for="why">Lý do bạn đặt lệnh:
+                    <textarea id="why"rows="3" cols="30" placeholder="reason for placing the order"></textarea>
+                   </label>
+                   <label for="stoploss">Điểm dừng
+                    <input id="stoploss" type="number" placeholder="stoploss">
+                   </label>
+                   <label for="why-sl">Tại sao lại dừng ở điểm này:
+                    <textarea id="why-sl"rows="3" cols="30" placeholder="why stoploss"></textarea>
+                   </label>
+                   <label for="profit">Điểm chốt lời
+                    <input id="profit" type="number" placeholder="profit">
+                   </label>
+                   <label for="emotion">Cảm xúc trước giao dịch:
+                    <textarea id="emotion"rows="3" cols="30" placeholder="emotions before the transaction"></textarea>
+                   </label>
+                </div>
+                <div class="three">
+                    <label for="trading">Diễn biến:
+                        <textarea id="trading"rows="5" cols="30" placeholder="the process of fluctuations when entering an order"></textarea>
+                    </label>
+                    <label for="p-l">Lời / Lỗ
+                        <input id="p-l" type="number" placeholder="profit and loss">
+                    </label>
+                    <label for="lesson">Rút kinh nghiệm:
+                        <textarea id="lesson"rows="5" cols="30" placeholder="draw lessons"></textarea>
+                    </label>
+                </div>
+                <div id="submit">
+                    <input type="submit" value="Submit" />
+                    <button type="button" id="clear-form">Clear</button>
+                </div>
+            </form> 
+        </div>
+    </main>
+    <script src="./index.js"></script>
+</body>
+
+</html>
