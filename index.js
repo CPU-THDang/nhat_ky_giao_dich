@@ -1,80 +1,47 @@
-document.getElementById("write-diary").addEventListener("submit", function (event) {
-    event.preventDefault(); // Ngăn tải lại trang
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("write-diary");
+    const clearBtn = document.createElement("button"); // Tạo nút Clear
+    clearBtn.textContent = "Clear";
+    clearBtn.type = "button";
+    document.getElementById("submit").appendChild(clearBtn);
 
-    let tradeId = localStorage.getItem("currentTradeId") || Date.now().toString();
-    
-    // Thu thập dữ liệu từ form
-    let tradeData = {
-        id: tradeId,
-        orderType: document.getElementById("order-trade").value,
-        date: document.getElementById("datePicker").value,
-        icon: document.getElementById("icon").value,
-        quantity: document.getElementById("quantity").value,
-        price: document.getElementById("price").value,
-        reason: document.getElementById("why").value,
-        stoploss: document.getElementById("stoploss").value,
-        reasonSL: document.getElementById("why-sl").value,
-        profit: document.getElementById("profit").value,
-        emotion: document.getElementById("emotion").value,
-        trading: document.getElementById("trading").value,
-        p_l: document.getElementById("p-l").value,
-        lesson: document.getElementById("lesson").value,
-    };
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Ngăn form tải lại trang
 
-    // Lưu ID vào localStorage nếu là lần đầu
-    if (!localStorage.getItem("currentTradeId")) {
-        localStorage.setItem("currentTradeId", tradeId);
-    }
+        let formData = {
+            orderTrade: document.getElementById("order-trade").value,
+            date: document.getElementById("datePicker").value,
+            icon: document.getElementById("icon").value,
+            quantity: parseFloat(document.getElementById("quantity").value) || 0,
+            price: parseFloat(document.getElementById("price").value) || 0,
+            why: document.getElementById("why").value,
+            stoploss: parseFloat(document.getElementById("stoploss").value) || 0,
+            whySl: document.getElementById("why-sl").value,
+            profit: parseFloat(document.getElementById("profit").value) || 0,
+            emotion: document.getElementById("emotion").value,
+            trading: document.getElementById("trading").value,
+            "p-l": parseFloat(document.getElementById("p-l").value) || 0,
+            lesson: document.getElementById("lesson").value,
+        };
 
-    // Gửi dữ liệu lên Google Apps Script
-    fetch("https://script.google.com/macros/s/AKfycbxJmeJ342OutGE7sUDa5hVyVMMmxxOWsbOd4eITMqkIkH_bTt4sOp8s_k4GlYSwptmelA/exec", {
-        method: "POST",
-        body: JSON.stringify(tradeData),
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "inserted") {
-            alert("Lệnh đã lưu tạm, nhập lần 2 để hoàn thành!");
-        } else if (data.status === "updated") {
-            alert("Lệnh đã cập nhật thành công!");
-            localStorage.removeItem("currentTradeId"); // Xóa ID sau khi cập nhật
-        } else {
-            alert("Lỗi khi lưu dữ liệu!");
-        }
-    })
-    .catch(error => console.error("Lỗi gửi dữ liệu:", error));
-});
+        // Gửi dữ liệu lên Google Sheets thông qua Google Apps Script
+        fetch("YOUR_GOOGLE_SCRIPT_URL", {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+        })
+        .then(() => {
+            alert("Dữ liệu đã được gửi lên Google Sheets!");
+        })
+        .catch((error) => {
+            console.error("Lỗi khi gửi dữ liệu:", error);
+            alert("Gửi dữ liệu thất bại!");
+        });
+    });
 
-// Tải dữ liệu lần 2 khi trang mở lại
-function loadTradeData() {
-    let tradeId = localStorage.getItem("currentTradeId");
-    if (!tradeId) {
-        console.log("Không có lệnh đang nhập dở!");
-        return;
-    }
-
-    fetch(`https://script.google.com/macros/s/AKfycbxJmeJ342OutGE7sUDa5hVyVMMmxxOWsbOd4eITMqkIkH_bTt4sOp8s_k4GlYSwptmelA/exec?id=${tradeId}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data) {
-            Object.keys(data).forEach(key => {
-                if (document.getElementById(key)) {
-                    document.getElementById(key).value = data[key] || "";
-                }
-            });
-        } else {
-            alert("Không tìm thấy dữ liệu cho lệnh này!");
-        }
-    })
-    .catch(error => console.error("Lỗi tải dữ liệu:", error));
-}
-
-// Gọi dữ liệu khi trang tải xong
-window.onload = loadTradeData;
-
-// Xóa dữ liệu
-document.getElementById("clear-trade").addEventListener("click", function () {
-    localStorage.removeItem("currentTradeId");
-    document.getElementById("write-diary").reset();
+    // Xử lý nút "Clear" để xóa dữ liệu form
+    clearBtn.addEventListener("click", function () {
+        form.reset(); // Xóa toàn bộ dữ liệu trong form
+    });
 });
