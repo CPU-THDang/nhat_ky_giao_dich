@@ -8,9 +8,25 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
         event.preventDefault(); // Ngăn form tải lại trang
 
+        // Lấy ngày từ input
+        let dateValue = document.getElementById("datePicker").value;
+        if (!dateValue) {
+            alert("Vui lòng chọn ngày!");
+            return;
+        }
+
+        // Lấy giờ hiện tại
+        let now = new Date();
+        let hours = String(now.getHours()).padStart(2, '0');
+        let minutes = String(now.getMinutes()).padStart(2, '0');
+        let seconds = String(now.getSeconds()).padStart(2, '0');
+
+        // Gộp ngày + giờ thành một chuỗi
+        let fullDateTime = `${dateValue} ${hours}:${minutes}:${seconds}`;
+
         let formData = {
             orderTrade: document.getElementById("order-trade").value,
-            date: document.getElementById("datePicker").value,
+            date: fullDateTime, // Lưu cả ngày và giờ
             icon: document.getElementById("icon").value,
             quantity: parseFloat(document.getElementById("quantity").value) || 0,
             price: parseFloat(document.getElementById("price").value) || 0,
