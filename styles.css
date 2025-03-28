@@ -57,28 +57,82 @@ input[type="submit"]:active, button:active {
 }
 
 @media (max-width: 480px) {
-    body {
-        font-size: 12px; /* Giảm font-size cho màn hình nhỏ */
+   body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        background: url('./background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 13px;
+    }
+    
+    h1 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #fff;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     }
     
     form {
-        width: 90%; /* Chiếm gần hết màn hình */
+        width: 90%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.3); /* Nền trong suốt */
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px); /* Hiệu ứng mờ */
     }
-
-    h1 {
-        font-size: 1.2rem;
+    
+    label {
+        display: block;
+        margin: 0.5rem 0;
+        color: white;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     }
-
+    
     input, textarea {
-        font-size: 0.8rem; /* Giảm cỡ chữ input để vừa với màn hình nhỏ */
+        width: 100%;
+        min-height: 2em;
+        background-color: rgba(255, 255, 255, 0.5); /* Trong suốt */
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        color: black;
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 0.9rem;
+        backdrop-filter: blur(3px);
     }
-
-    input[type="submit"] {
-        width: 85%; /* Submit button rộng hơn để dễ bấm */
+    
+    input::placeholder, textarea::placeholder {
+        color: rgba(0, 0, 0, 0.6);
     }
-
-    button {
-        width: 85%;
+    
+    input[type="submit"], button {
+        display: block;
+        width: 90%;
+        max-width: 300px;
+        margin: 1em auto;
+        height: 2.5em;
+        font-size: 1.1rem;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 2px solid white;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    input[type="submit"]:hover, button:hover {
+        background: rgba(255, 255, 255, 0.8);
+    }
+    
+    input[type="submit"]:active, button:active {
+        background: #FFD700;
+        transform: scale(0.95);
     }
 
 }
