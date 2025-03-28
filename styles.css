@@ -37,7 +37,7 @@ input, textarea {
     font-size: 1rem;
 }
 
-input[type="submit"] {
+input[type="submit"], button {
     display: block;
     width: 100%; /* Chiếm toàn bộ chiều rộng trên điện thoại */
     max-width: 300px;
@@ -50,42 +50,35 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-button {
-    display: block;
-    width: 100%; /* Chiếm toàn bộ chiều rộng trên điện thoại */
-    max-width: 300px;
-    margin: 1em auto;
-    height: 2.5em;
-    font-size: 1.1rem;
-    border-radius: 15px;
-    background-color: #FFEFEF;
-    border: 3px solid black;
-    cursor: pointer;
+input[type="submit"]:active, button:active {
+    border-color: red;
+    background-color: #FFD700; /* Màu vàng */
+    transform: scale(0.95); /* Hiệu ứng nhấn xuống */
 }
 
 @media (max-width: 480px) {
     body {
-        font-size: 14px; /* Giảm font-size cho màn hình nhỏ */
+        font-size: 12px; /* Giảm font-size cho màn hình nhỏ */
     }
     
     form {
-        width: 95%; /* Chiếm gần hết màn hình */
+        width: 90%; /* Chiếm gần hết màn hình */
     }
 
     h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     input, textarea {
-        font-size: 0.9rem; /* Giảm cỡ chữ input để vừa với màn hình nhỏ */
+        font-size: 0.8rem; /* Giảm cỡ chữ input để vừa với màn hình nhỏ */
     }
 
     input[type="submit"] {
-        width: 90%; /* Submit button rộng hơn để dễ bấm */
+        width: 85%; /* Submit button rộng hơn để dễ bấm */
     }
 
     button {
-        width: 90%;
+        width: 85%;
     }
 
 }
