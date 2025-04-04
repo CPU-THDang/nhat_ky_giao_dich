@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let formData = {
             orderTrade: document.getElementById("order-trade").value,
             date: fullDateTime, // Lưu cả ngày và giờ
-            icon: document.getElementById("icon").value,
+            icon: document.getElementById("icon").value+"/USDT",
             quantity: parseFloat(document.getElementById("quantity").value) || 0,
             price: parseFloat(document.getElementById("price").value) || 0,
             why: document.getElementById("why").value,
