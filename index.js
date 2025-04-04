@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             profit: parseFloat(document.getElementById("profit").value) || 0,
             emotion: document.getElementById("emotion").value,
             trading: document.getElementById("trading").value,
-            "p-l": parseFloat(document.getElementById("p-l").value) || 0,
+            "p-l": (document.getElementById("p-l").value),
             lesson: document.getElementById("lesson").value,
         };
 
